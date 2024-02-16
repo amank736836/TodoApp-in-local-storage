@@ -9,3 +9,6 @@
     padding: 4px;
 }
 
+.checked{
+    text-decoration:line-through;
+}

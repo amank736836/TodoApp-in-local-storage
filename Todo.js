@@ -71,11 +71,19 @@ function check_task(e){
     let parentdiv = e.target.parentNode;
     let taskid = parentdiv.getAttribute("id");
 
+
+    let task = parentdiv.childNodes[0];
     let chk = parentdiv.childNodes[1];
 
     let status = "";
-    if(chk.checked) status='completed';
-    else status='pending';
+    if(chk.checked) {
+        task.setAttribute("class","checked");
+        status='completed';
+    }
+    else {
+        task.removeAttribute("class","checked");
+        status='pending';
+    }
 
 
     alltasks.filter((item)=>{
