@@ -1,8 +1,8 @@
-const taskname = document.querySelector("#taskname");
-const tasks = document.querySelector("#tasks");
-
 let alltasks = [];
 let task_counter = 1;
+
+const taskname = document.querySelector("#taskname");
+const tasks = document.querySelector("#tasks");
 
 taskname.addEventListener("keydown",(e)=>{
     if(e.keyCode==13 && taskname.value!=""){
@@ -28,51 +28,48 @@ function AddTask() {
 function AddtoUI(obj){
 
     let div = document.createElement("div");
+    let span = document.createElement("span");
+    let chk = document.createElement("input");
+    let replace = document.createElement("button");
+    let del = document.createElement("button");
+
     div.setAttribute("id", obj.id);
     div.setAttribute("class", "div1");
-    let span = document.createElement("span");
+    
     span.innerText = obj.title;
     
-    let chk = document.createElement("input");
     chk.setAttribute("type", "checkbox");
     if(obj.status == 'completed'){
         chk.setAttribute("checked","");
     }
+    
     chk.addEventListener("click", (e)=>{
         let status = "";
-        if(chk.checked)
-        status='completed';
-    else
-    status='pending';
+        if(chk.checked) status='completed';
+        else status='pending';
 
-    let parentdiv = e.target.parentNode;
-    let taskid = parentdiv.getAttribute("id");
+        let parentdiv = e.target.parentNode;
+        let taskid = parentdiv.getAttribute("id");
 
-    alltasks.map((item)=>{
-        if(item.id == taskid)
-        item.status = status;
-    return item;
-    })
-    storeToLocalStorage();
+        alltasks.filter((item)=>{
+            if(item.id == taskid) item.status = status;
+            return item;
+        })
+        storeToLocalStorage();
     })
 
 
 
 
-    let replace = document.createElement("button");
     replace.innerHTML = "Replace";
     replace.addEventListener('click',(e)=>{
         replace_task(e);
     })
-
     
-    
-    let del = document.createElement("button");
     del.innerHTML = "Delete"
     del.addEventListener('click',(e)=>{
         delete_task(e);
     })
-    
     
     div.appendChild(span);
     div.appendChild(chk);
@@ -84,48 +81,17 @@ function AddtoUI(obj){
 }
 
 function replace_task(e){
-    // let parentdiv = e.target.parentNode;
-    // let taskid = parentdiv.getAttribute("id");
-    // console.log(e);
-    
-    // let span = parentdiv.childNodes[0];
-    // const title = prompt('Enter updated new task:');
-    // span.innerText = title;
-    // alltasks = alltasks.filter((item)=>{
-    //     if(item.id == taskid){
-    //         item.title = title;
-    //     }
-    //     return item;
-    // })
-    // storeToLocalStorage();
-    // console.log(alltasks);
+    let parentdiv = e.target.parentNode;
+    let taskid = parentdiv.getAttribute("id");
+    let span = parentdiv.childNodes[0];
 
-    let parentDiv = e.target.parentNode;
-    let taskId = parentDiv.getAttribute("id");
-    
-    let span = parentDiv.childNodes[0];
-    let replace = parentDiv.childNodes[2];
+    span.innerText = taskname.value;
 
-
-    const input = document.createElement("input");
-    input.setAttribute("autofocus", "");
-    input.type = "text";
-    input.placeholder = "Enter updated new task";
-    input.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-            const title = input.value;
-            span.innerText = title;
-            alltasks = alltasks.filter((item) => {
-                if (item.id == taskId) {
-                    item.title = title;
-                }
-                return item;
-            });
-            parentDiv.removeChild(input);
-            storeToLocalStorage();
-        }
-        });
-    parentDiv.insertBefore(input, replace);
+    alltasks = alltasks.filter((item)=>{
+        if(item.id == taskid) item.title = taskname.value;
+        return item;
+    })
+    storeToLocalStorage();
 }
 
 function clear(){
@@ -137,9 +103,7 @@ function delete_task(e){
     let taskid = parentdiv.getAttribute("id");
     parentdiv.remove();
     alltasks = alltasks.filter((item)=>{
-        if(item.id != taskid){
-            return item;
-        }
+        if(item.id != taskid) return item;
     })
     storeToLocalStorage();
 }
