@@ -105,11 +105,12 @@ function AddtoUI(obj){
     let del = document.createElement("button");
     del.innerHTML = "Del"
     del.addEventListener('click',(e)=>{
-        let parentdiv = e.target.parentNode;
-        let taskid = parentdiv.getAttribute("id");
-        parentdiv.remove();
+        // let parentdiv = e.target.parentNode;
+        // let taskid = parentdiv.getAttribute("id");
+        // parentdiv.remove();
+        div.remove();
         alltasks = alltasks.filter((item)=>{
-            if(item.id != taskid){
+            if(item.id != obj.id){
                 return item;
             }
         })
