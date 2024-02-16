@@ -44,22 +44,8 @@ function AddtoUI(obj){
     }
     
     chk.addEventListener("click", (e)=>{
-        let status = "";
-        if(chk.checked) status='completed';
-        else status='pending';
-
-        let parentdiv = e.target.parentNode;
-        let taskid = parentdiv.getAttribute("id");
-
-        alltasks.filter((item)=>{
-            if(item.id == taskid) item.status = status;
-            return item;
-        })
-        storeToLocalStorage();
+        check_task(e);
     })
-
-
-
 
     replace.innerHTML = "Replace";
     replace.addEventListener('click',(e)=>{
@@ -78,6 +64,25 @@ function AddtoUI(obj){
     tasks.appendChild(div);
 
     clear();
+}
+
+function check_task(e){
+    
+    let parentdiv = e.target.parentNode;
+    let taskid = parentdiv.getAttribute("id");
+
+    let chk = parentdiv.childNodes[1];
+
+    let status = "";
+    if(chk.checked) status='completed';
+    else status='pending';
+
+
+    alltasks.filter((item)=>{
+        if(item.id == taskid) item.status = status;
+        return item;
+    })
+    storeToLocalStorage();
 }
 
 function replace_task(e){
