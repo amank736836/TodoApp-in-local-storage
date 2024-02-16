@@ -5,8 +5,10 @@ let alltasks = [];
 let task_counter = 1;
 
 taskname.addEventListener("keydown",(e)=>{
-    // console.log(e);
-    if(e.keyCode==13){
+    if(e.keyCode==13 && taskname.value!=""){
+        AddTask();
+    }else{
+        taskname.value = prompt("Please enter some task");
         AddTask();
     }
 } )
@@ -68,6 +70,19 @@ function AddtoUI(obj){
     let replace = document.createElement("button");
     replace.innerHTML = "Replace";
     replace.addEventListener('click',(e)=>{
+        // console.log(e);
+        // const title = prompt('Enter updated new task:');
+        // span.innerText = title;
+        // let parentdiv = e.target.parentNode;
+        // let taskid = parentdiv.getAttribute("id");
+        // alltasks = alltasks.filter((item)=>{
+        //     if(item.id == taskid){
+        //         item.title = title;
+        //     }
+        //     return item;
+        // })
+        // storeToLocalStorage();
+        // console.log(alltasks);
 
         const input = document.createElement("input");
         input.type = "text";
@@ -87,8 +102,8 @@ function AddtoUI(obj){
                 storeToLocalStorage();
                 div.removeChild(input);
             }
-        });
-        div.insertBefore(input, replace); 
+         });
+        div.insertBefore(input, replace);
     })
 
     div.appendChild(replace);
