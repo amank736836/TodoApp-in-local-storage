@@ -1,9 +1,11 @@
 #input{
     text-align: center;
+    padding: 5px;
 }
 
 .div1{
     display: flex;
     justify-content: space-around;
-    padding: 3px;
+    padding: 4px;
 }
+

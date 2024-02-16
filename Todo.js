@@ -31,13 +31,8 @@ function AddtoUI(obj){
     div.setAttribute("id", obj.id);
     div.setAttribute("class", "div1");
     let span = document.createElement("span");
-    // let txtNode = document.createTextNode(obj.title);
-    // let txtNode = document.createTextNode(taskname.value);
-    //span.appendChild(txtNode);
     span.innerText = obj.title;
-    // span.innerText = taskname.value;
-    div.appendChild(span);
-
+    
     let chk = document.createElement("input");
     chk.setAttribute("type", "checkbox");
     if(obj.status == 'completed'){
@@ -46,23 +41,23 @@ function AddtoUI(obj){
     chk.addEventListener("click", (e)=>{
         let status = "";
         if(chk.checked)
-            status='completed';
-        else
-            status='pending';
+        status='completed';
+    else
+    status='pending';
 
-        let parentdiv = e.target.parentNode;
-        let taskid = parentdiv.getAttribute("id");
+    let parentdiv = e.target.parentNode;
+    let taskid = parentdiv.getAttribute("id");
 
-        alltasks.map((item)=>{
-            if(item.id == taskid)
-                item.status = status;
-            return item;
-        })
-        storeToLocalStorage();
-        // console.log(alltasks);
+    alltasks.map((item)=>{
+        if(item.id == taskid)
+        item.status = status;
+    return item;
+    })
+    storeToLocalStorage();
+    // console.log(alltasks);
     })
 
-    div.appendChild(chk);
+
 
 
     let replace = document.createElement("button");
@@ -83,8 +78,9 @@ function AddtoUI(obj){
         // console.log(alltasks);
 
         const input = document.createElement("input");
+        input.setAttribute("autofocus", "");
         input.type = "text";
-        input.placeholder = "Enter updated new task";
+        input.placeholder = "Enter updated task";
         input.addEventListener("keydown", (event) => {
             if (event.key === "Enter") {
                 const title = input.value;
@@ -104,9 +100,8 @@ function AddtoUI(obj){
         div.insertBefore(input, replace);
     })
 
-    div.appendChild(replace);
-
-
+    
+    
     let del = document.createElement("button");
     del.innerHTML = "Del"
     del.addEventListener('click',(e)=>{
@@ -120,13 +115,15 @@ function AddtoUI(obj){
         })
         storeToLocalStorage();
     })
-
-    div.appendChild(del);
-
-
-    tasks.appendChild(div);
+    
     taskname.value = "";
-
+    
+    
+    div.appendChild(span);
+    div.appendChild(chk);
+    div.appendChild(replace);
+    div.appendChild(del);
+    tasks.appendChild(div);
 }
 
 function storeToLocalStorage(){
