@@ -54,7 +54,6 @@ function AddtoUI(obj){
     return item;
     })
     storeToLocalStorage();
-    // console.log(alltasks);
     })
 
 
@@ -63,41 +62,7 @@ function AddtoUI(obj){
     let replace = document.createElement("button");
     replace.innerHTML = "Replace";
     replace.addEventListener('click',(e)=>{
-        // console.log(e);
-        // const title = prompt('Enter updated new task:');
-        // span.innerText = title;
-        // let parentdiv = e.target.parentNode;
-        // let taskid = parentdiv.getAttribute("id");
-        // alltasks = alltasks.filter((item)=>{
-        //     if(item.id == taskid){
-        //         item.title = title;
-        //     }
-        //     return item;
-        // })
-        // storeToLocalStorage();
-        // console.log(alltasks);
-
-        const input = document.createElement("input");
-        input.setAttribute("autofocus", "");
-        input.type = "text";
-        input.placeholder = "Enter updated new task";
-        input.addEventListener("keydown", (event) => {
-            if (event.key === "Enter") {
-                const title = input.value;
-                span.innerText = title;
-                let parentDiv = e.target.parentNode;
-                let taskId = parentDiv.getAttribute("id");
-                alltasks = alltasks.map((item) => {
-                    if (item.id == taskId) {
-                        item.title = title;
-                    }
-                    return item;
-                });
-                storeToLocalStorage();
-                div.removeChild(input);
-            }
-         });
-        div.insertBefore(input, replace);
+        replace_task(e);
     })
 
     
@@ -109,12 +74,56 @@ function AddtoUI(obj){
     })
     
     
-    
     div.appendChild(span);
     div.appendChild(chk);
     div.appendChild(replace);
     div.appendChild(del);
     tasks.appendChild(div);
+
+    clear();
+}
+
+function replace_task(e){
+    // console.log(e);
+    // const title = prompt('Enter updated new task:');
+    // span.innerText = title;
+    // let parentdiv = e.target.parentNode;
+    // let taskid = parentdiv.getAttribute("id");
+    // alltasks = alltasks.filter((item)=>{
+    //     if(item.id == taskid){
+    //         item.title = title;
+    //     }
+    //     return item;
+    // })
+    // storeToLocalStorage();
+    // console.log(alltasks);
+
+    let parentDiv = e.target.parentNode;
+    let taskId = parentDiv.getAttribute("id");
+
+    let span = parentDiv.childNodes[0];
+    let replace = parentDiv.childNodes[2];
+
+
+    const input = document.createElement("input");
+    input.setAttribute("autofocus", "");
+    input.type = "text";
+    input.placeholder = "Enter updated new task";
+    input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            const title = input.value;
+            span.innerText = title;
+            alltasks = alltasks.map((item) => {
+                if (item.id == taskId) {
+                    item.title = title;
+                }
+                return item;
+            });
+            parentDiv.removeChild(input);
+            storeToLocalStorage();
+        }
+        });
+    parentDiv.insertBefore(input, replace);
 }
 
 function clear(){
