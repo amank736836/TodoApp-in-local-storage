@@ -105,15 +105,7 @@ function AddtoUI(obj){
     let del = document.createElement("button");
     del.innerHTML = "Delete"
     del.addEventListener('click',(e)=>{
-        let parentdiv = e.target.parentNode;
-        let taskid = parentdiv.getAttribute("id");
-        parentdiv.remove();
-        alltasks = alltasks.filter((item)=>{
-            if(item.id != taskid){
-                return item;
-            }
-        })
-        storeToLocalStorage();
+        delete_task(e);
     })
     
     taskname.value = "";
@@ -125,6 +117,19 @@ function AddtoUI(obj){
     div.appendChild(del);
     tasks.appendChild(div);
 }
+
+function delete_task(e){
+    let parentdiv = e.target.parentNode;
+    let taskid = parentdiv.getAttribute("id");
+    parentdiv.remove();
+    alltasks = alltasks.filter((item)=>{
+        if(item.id != taskid){
+            return item;
+        }
+    })
+    storeToLocalStorage();
+}
+
 
 function storeToLocalStorage(){
     localStorage.setItem("alltasks",JSON.stringify(alltasks));
