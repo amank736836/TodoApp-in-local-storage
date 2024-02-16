@@ -108,7 +108,6 @@ function AddtoUI(obj){
         delete_task(e);
     })
     
-    taskname.value = "";
     
     
     div.appendChild(span);
@@ -116,6 +115,10 @@ function AddtoUI(obj){
     div.appendChild(replace);
     div.appendChild(del);
     tasks.appendChild(div);
+}
+
+function clear(){
+    taskname.value = "";
 }
 
 function delete_task(e){
