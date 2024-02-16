@@ -68,40 +68,27 @@ function AddtoUI(obj){
     let replace = document.createElement("button");
     replace.innerHTML = "Replace";
     replace.addEventListener('click',(e)=>{
-        console.log(e);
-        const title = prompt('Enter updated new task:');
-        span.innerText = title;
-        let parentdiv = e.target.parentNode;
-        let taskid = parentdiv.getAttribute("id");
-        alltasks = alltasks.filter((item)=>{
-            if(item.id == taskid){
-                item.title = title;
-            }
-            return item;
-        })
-        storeToLocalStorage();
-        console.log(alltasks);
 
-        // const input = document.createElement("input");
-        // input.type = "text";
-        // input.placeholder = "Enter updated new task";
-        // input.addEventListener("keydown", (event) => {
-        //     if (event.key === "Enter") {
-        //         const title = input.value;
-        //         span.innerText = title;
-        //         let parentDiv = e.target.parentNode;
-        //         let taskId = parentDiv.getAttribute("id");
-        //         alltasks = alltasks.map((item) => {
-        //             if (item.id == taskId) {
-        //                 item.title = title;
-        //             }
-        //             return item;
-        //         });
-        //         storeToLocalStorage();
-        //         div.removeChild(input); // Remove the input after updating the task
-        //     }
-        //  });
-        // div.insertBefore(input, replace); // Insert the input before the replace button        
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "Enter updated new task";
+        input.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                const title = input.value;
+                span.innerText = title;
+                let parentDiv = e.target.parentNode;
+                let taskId = parentDiv.getAttribute("id");
+                alltasks = alltasks.map((item) => {
+                    if (item.id == taskId) {
+                        item.title = title;
+                    }
+                    return item;
+                });
+                storeToLocalStorage();
+                div.removeChild(input);
+            }
+        });
+        div.insertBefore(input, replace); 
     })
 
     div.appendChild(replace);
