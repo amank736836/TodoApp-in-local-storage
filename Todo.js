@@ -113,7 +113,7 @@ function replace_task(e){
         if (event.key === "Enter") {
             const title = input.value;
             span.innerText = title;
-            alltasks = alltasks.map((item) => {
+            alltasks = alltasks.filter((item) => {
                 if (item.id == taskId) {
                     item.title = title;
                 }
