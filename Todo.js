@@ -84,46 +84,48 @@ function AddtoUI(obj){
 }
 
 function replace_task(e){
+    let parentdiv = e.target.parentNode;
+    let taskid = parentdiv.getAttribute("id");
     // console.log(e);
-    // const title = prompt('Enter updated new task:');
-    // span.innerText = title;
-    // let parentdiv = e.target.parentNode;
-    // let taskid = parentdiv.getAttribute("id");
-    // alltasks = alltasks.filter((item)=>{
-    //     if(item.id == taskid){
-    //         item.title = title;
-    //     }
-    //     return item;
-    // })
-    // storeToLocalStorage();
+    
+    let span = parentdiv.childNodes[0];
+    const title = prompt('Enter updated new task:');
+    span.innerText = title;
+    alltasks = alltasks.filter((item)=>{
+        if(item.id == taskid){
+            item.title = title;
+        }
+        return item;
+    })
+    storeToLocalStorage();
     // console.log(alltasks);
 
-    let parentDiv = e.target.parentNode;
-    let taskId = parentDiv.getAttribute("id");
+    // let parentDiv = e.target.parentNode;
+    // let taskId = parentDiv.getAttribute("id");
+    
+    // let span = parentDiv.childNodes[0];
+    // let replace = parentDiv.childNodes[2];
 
-    let span = parentDiv.childNodes[0];
-    let replace = parentDiv.childNodes[2];
 
-
-    const input = document.createElement("input");
-    input.setAttribute("autofocus", "");
-    input.type = "text";
-    input.placeholder = "Enter updated new task";
-    input.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-            const title = input.value;
-            span.innerText = title;
-            alltasks = alltasks.filter((item) => {
-                if (item.id == taskId) {
-                    item.title = title;
-                }
-                return item;
-            });
-            parentDiv.removeChild(input);
-            storeToLocalStorage();
-        }
-        });
-    parentDiv.insertBefore(input, replace);
+    // const input = document.createElement("input");
+    // input.setAttribute("autofocus", "");
+    // input.type = "text";
+    // input.placeholder = "Enter updated new task";
+    // input.addEventListener("keydown", (event) => {
+    //     if (event.key === "Enter") {
+    //         const title = input.value;
+    //         span.innerText = title;
+    //         alltasks = alltasks.filter((item) => {
+    //             if (item.id == taskId) {
+    //                 item.title = title;
+    //             }
+    //             return item;
+    //         });
+    //         parentDiv.removeChild(input);
+    //         storeToLocalStorage();
+    //     }
+    //     });
+    // parentDiv.insertBefore(input, replace);
 }
 
 function clear(){
