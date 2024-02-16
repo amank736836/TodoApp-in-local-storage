@@ -7,7 +7,7 @@ let task_counter = 1;
 taskname.addEventListener("keydown",(e)=>{
     if(e.keyCode==13 && taskname.value!=""){
         AddTask();
-    }else{
+    }else if(e.keyCode==13){
         taskname.value = prompt("Please enter some task");
         AddTask();
     }
@@ -18,20 +18,18 @@ function AddTask() {
     obj.title = taskname.value;
     obj.status = 'pending';
     obj.id = task_counter;
+    alltasks.push(obj);
+    storeToLocalStorage();
+    AddtoUI(obj);
     task_counter++;
     localStorage.setItem('task_counter',task_counter);
-    alltasks.push(obj);
-
-    AddtoUI(obj);
-    storeToLocalStorage();
-    // console.log(alltasks);
-
 }
 
 function AddtoUI(obj){
 
     let div = document.createElement("div");
     div.setAttribute("id", obj.id);
+    div.setAttribute("class", "div1");
     let span = document.createElement("span");
     // let txtNode = document.createTextNode(obj.title);
     // let txtNode = document.createTextNode(taskname.value);
