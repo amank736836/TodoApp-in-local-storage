@@ -80,7 +80,7 @@ function AddtoUI(obj){
         const input = document.createElement("input");
         input.setAttribute("autofocus", "");
         input.type = "text";
-        input.placeholder = "Enter updated task";
+        input.placeholder = "Enter updated new task";
         input.addEventListener("keydown", (event) => {
             if (event.key === "Enter") {
                 const title = input.value;
@@ -103,14 +103,13 @@ function AddtoUI(obj){
     
     
     let del = document.createElement("button");
-    del.innerHTML = "Del"
+    del.innerHTML = "Delete"
     del.addEventListener('click',(e)=>{
-        // let parentdiv = e.target.parentNode;
-        // let taskid = parentdiv.getAttribute("id");
-        // parentdiv.remove();
-        div.remove();
+        let parentdiv = e.target.parentNode;
+        let taskid = parentdiv.getAttribute("id");
+        parentdiv.remove();
         alltasks = alltasks.filter((item)=>{
-            if(item.id != obj.id){
+            if(item.id != taskid){
                 return item;
             }
         })
