@@ -2,7 +2,7 @@ const taskname = document.querySelector("#taskname");
 const tasks = document.querySelector("#tasks");
 
 let alltasks = [];
-let counter = 1;
+let task_counter = 1;
 
 taskname.addEventListener("keydown",(e)=>{
     // console.log(e);
@@ -15,9 +15,9 @@ function AddTask() {
     let obj = {};
     obj.title = taskname.value;
     obj.status = 'pending';
-    obj.id = counter;
-    counter++;
-    localStorage.setItem('counter',counter);
+    obj.id = task_counter;
+    task_counter++;
+    localStorage.setItem('task_counter',task_counter);
     alltasks.push(obj);
 
     AddtoUI(obj);
@@ -110,7 +110,6 @@ function AddtoUI(obj){
     let del = document.createElement("button");
     del.innerHTML = "Del"
     del.addEventListener('click',(e)=>{
-        // console.log(e);
         let parentdiv = e.target.parentNode;
         let taskid = parentdiv.getAttribute("id");
         parentdiv.remove();
@@ -120,9 +119,6 @@ function AddtoUI(obj){
             }
         })
         storeToLocalStorage();
-        // console.log(alltasks);
-
-        
     })
 
     div.appendChild(del);
@@ -134,23 +130,19 @@ function AddtoUI(obj){
 }
 
 function storeToLocalStorage(){
-    localStorage.setItem("mytasks",JSON.stringify(alltasks));
+    localStorage.setItem("alltasks",JSON.stringify(alltasks));
 }
 
 function fetchFromLocalStorage(){
-    if(localStorage.getItem("mytasks")!= '[]'){
-        alltasks = JSON.parse(localStorage.getItem("mytasks"));
-        counter = localStorage.getItem("counter");
+    if(localStorage.getItem("alltasks")!= '[]' && localStorage.getItem("alltasks")!=null){
+        alltasks = JSON.parse(localStorage.getItem("alltasks"));
+        task_counter = localStorage.getItem("task_counter");
+        alltasks.forEach((item) => AddtoUI(item))
     }else{
         alltasks = [];
-        counter = 1;
-        localStorage.setItem('counter',1);
-    }
-
-    alltasks.forEach((item) => {
-        AddtoUI(item);
-    })
-        
+        task_counter = 1;
+        localStorage.setItem('task_counter',1);
+    }   
 }
 
 fetchFromLocalStorage()
